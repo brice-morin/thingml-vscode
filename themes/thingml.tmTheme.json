@@ -14,15 +14,74 @@
 				"thingml.keyword.structure"
 			],
 			"settings": {
-				"foreground": "#FFA8F2"
+				"foreground": "#FFC8A2"
 			}
 		},
 		{
 			"scope": [
-				"thingml.keyword.action"
+				"thingml.keyword.action",
+				"thingml.keyword.send"
 			],
 			"settings": {
-				"foreground": "#FFC8A2"
+				"foreground": "#FFF8F2"
+			}
+		},
+		{
+			"scope": [
+				"thingml.keyword.states"
+			],
+			"settings": {
+				"foreground": "#C25030"
+			}
+		},
+		{
+			"scope": [
+				"thingml.keyword.types"
+			],
+			"settings": {
+				"foreground": "#CCF0F8"
+			}
+		},
+		{
+			"scope": [
+				"thingml.keyword.configuration"
+			],
+			"settings": {
+				"foreground": "#AAC8A2"
+			}
+		},
+		{
+			"scope": [
+				"thingml.extern"
+			],
+			"settings": {
+				"foreground": "#FCC8BF"
+			}
+		},
+		{
+			"scope": [
+				"thingml.string"
+			],
+			"settings": {
+				"foreground": "#AAEEBB"
+			}
+		},
+		{
+			"scope": [
+				"thingml.annot"
+			],
+			"settings": {
+				"foreground": "#A0F0FF"
+			}
+		},
+		{
+			"scope": [
+				"thingml.char",
+				"thingml.number",
+				"thingml.boolean"
+			],
+			"settings": {
+				"foreground": "#BC11BF"
 			}
 		},
 		{

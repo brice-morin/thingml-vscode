@@ -16,10 +16,39 @@
                 },
                 {
                     "include": "#structure"
-                }
-                ,
+                },
                 {
                     "include": "#action"
+                },
+                {
+                    "include": "#sendaction"
+                },
+                {
+                    "include": "#states"
+                },
+                {
+                    "include": "#configuration"
+                },
+                {
+                    "include": "#extern"
+                },
+                {
+                    "include": "#annot"
+                },
+                {
+                    "include": "#string"
+                },
+                {
+                    "include": "#char"
+                },
+                {
+                    "include": "#number"
+                },
+                {
+                    "include": "#boolean"
+                },
+                {
+                    "include": "#types"
                 }
             ]
         },
@@ -33,13 +62,58 @@
             "begin": "/\\*(\\*)?(?!/)",
             "end": "\\*/"
         },
+        "extern": {
+            "name": "thingml.extern",
+            "begin": "`",
+            "end": "`"
+        },
+        "string": {
+            "name": "thingml.string",
+            "begin": "\"",
+            "end": "\""
+        },
+        "char": {
+            "name": "thingml.char",
+            "begin": "'",
+            "end": "'"
+        },
+        "number": {
+            "name": "thingml.number",
+            "match": "\\b\\d+(.\\d+)?\\b"
+        },
+        "boolean": {
+            "name": "thingml.boolean",
+            "match": "(true|false)"
+        },
+        "annot": {
+            "name": "thingml.annot",
+            "begin": "@",
+            "end": "\\s+"
+        },
         "structure": {
             "name": "thingml.keyword.structure",
-            "match": "\\b(?i)(thing|property|readonly property|datatype)\\b"
+            "match": "\\b(?i)(thing|fragment|message|sends|receives|property|readonly property|datatype|object|enumeration|includes|port|provided|required|internal)\\b"
         },
         "action": {
             "name": "thingml.keyword.action",
-            "match": "\\b(?i)(function|do|end|if|then|while|and|or|not|var|readonly var)\\b"
+            "match": "\\b(?i)(import|from|if|then|while|and|or|not|var|readonly var|as|print|println|error|errorln|fork|return)\\b"
+        },
+        "sendaction": {
+            "name": "thingml.keyword.send",
+            "match": "\\w(!)"
+        },
+        "states": {
+            "name": "thingml.keyword.states",
+            "match": "\\b(?i)(statechart|composite|state|final|event|transition|internal|guard|action|on entry|on exit|init|keeps|history|region|session|function|do|end|abstract)\\b"
+        },
+        
+        "types": {
+            "name": "thingml.keyword.types",
+            "match": "\\b(?i)(Byte|Char|Integer|Boolean|Int8|UInt8|Int16|UInt16|Int32|UInt32|Long|Int64|UInt64|Float|Double|String|DigitalState)\\b"
+        },
+        "configuration": {
+            "name": "thingml.keyword.configuration",
+            "match": "\\b(?i)(configuration|instance|connector|external|set)\\b"
         }
     },
     "patterns": [
