@@ -1,0 +1,72 @@
+{
+    "name": "thingml-vscode",
+    "displayName": "ThingML VS Code editor",
+    "description": "A simple VS Code editor for ThingML",
+    "version": "0.0.1",
+    "publisher": "tellu",
+    "icon": "images/thingml.png",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/brice-morin/thingml-vscode.git"
+    },
+    "bugs": {
+        "url": "https://github.com/brice-morin/thingml-vscode/issues"
+    },
+    "engines": {
+        "vscode": "^1.34.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "activationEvents": [
+        "onLanguage:thingml"
+    ],
+    "main": "out/extension",
+    "contributes": {
+        "languages": [
+            {
+                "id": "thingml",
+                "aliases": [
+                    "thingml",
+                    "ThingML"
+                ],
+                "extensions": [
+                    ".thingml"
+                ],
+                "configuration": "./thingml.configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "thingml",
+                "scopeName": "text.thingml",
+                "path": "./syntaxes/thingml.tmLanguage.json"
+            }
+        ],
+        "themes": [
+			{
+				"label": "ThingML Theme",
+				"uiTheme": "vs-dark",
+				"path": "./themes/thingml.tmTheme.json"
+			}
+		]        
+    },
+    "devDependencies": {
+  		"@types/node": "^12.12.0",
+  		"@types/vscode": "^1.34.0",
+  		"@typescript-eslint/eslint-plugin": "^3.0.2",
+  		"@typescript-eslint/parser": "^3.0.2",
+  		"eslint": "^7.1.0",
+  		"typescript": "^3.9.4"
+  	},
+    "scripts": {
+        "vscode:prepublish": "npm install && npm run compile",
+        "compile": "tsc -p ./",
+        "lint": "eslint . --ext .ts,.tsx",
+        "watch": "tsc -watch -p ./"
+    },
+    "dependencies": {
+        "vscode-languageclient": "^6.1.3"
+    }
+}

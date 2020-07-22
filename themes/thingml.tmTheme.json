@@ -1,0 +1,37 @@
+{
+	"type": "dark",
+	"colors": {
+		"dropdown.background": "#414339"
+	},
+	"tokenColors": [
+		{
+			"settings": {
+				"foreground": "#F8F8F2"
+			}
+		},
+		{
+			"scope": [
+				"thingml.keyword.structure"
+			],
+			"settings": {
+				"foreground": "#FFA8F2"
+			}
+		},
+		{
+			"scope": [
+				"thingml.keyword.action"
+			],
+			"settings": {
+				"foreground": "#FFC8A2"
+			}
+		},
+		{
+			"name": "Comment",
+			"scope": "thingml.comment",
+			"settings": {
+				"foreground": "#88846f"
+			}
+		}
+	],
+	"semanticHighlighting": true
+}

@@ -1,0 +1,50 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "thingml",
+    "scopeName": "text.thingml",
+    "fileTypes": [
+        "thingml"
+    ],
+    "repository": {
+        "general": {
+            "patterns": [
+                {
+                    "include": "#linecomment"
+                },
+                {
+                    "include": "#blockcomment"
+                },
+                {
+                    "include": "#structure"
+                }
+                ,
+                {
+                    "include": "#action"
+                }
+            ]
+        },
+        "linecomment": {
+            "name": "thingml.comment.line",
+            "begin": "(^[ \\t]+)?(?=//)",
+            "end": "(?=$)"
+        },
+        "blockcomment": {
+            "name": "thingml.comment.block",
+            "begin": "/\\*(\\*)?(?!/)",
+            "end": "\\*/"
+        },
+        "structure": {
+            "name": "thingml.keyword.structure",
+            "match": "\\b(?i)(thing|property|readonly property|datatype)\\b"
+        },
+        "action": {
+            "name": "thingml.keyword.action",
+            "match": "\\b(?i)(function|do|end|if|then|while|and|or|not|var|readonly var)\\b"
+        }
+    },
+    "patterns": [
+        {
+            "include": "#general"
+        }
+    ]
+}
