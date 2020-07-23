@@ -1,12 +1,12 @@
 {
     "connector": {
-      "prefix": ["conn"],
+      "prefix": ["connector"],
       "body": ["connector ${1:client}.${2:req_port} => ${3:server}.${4:pro_port}"],
       "description": "A connector"
     },
     "statechart": {
-        "prefix": ["state"],
-        "body": ["statechart ${1:name} init ${2:init_state} {\n\tstate ${2:init_state}{\n\t}\n}\n"],
+        "prefix": ["statechart"],
+        "body": ["statechart ${1:name} init ${2:init_state} {\n\tstate ${2:init_state}{\n\t\t$0\n\t}\n}\n"],
         "description": "A statechart"
     },
     "datatype": {
