@@ -117,6 +117,12 @@
                 "key": "ctrl+alt+u",
                 "when": "resourceExtname == .thingml"
             }
+          ],
+          "snippets": [
+            {
+              "language": "thingml",
+              "path": "./snippets/thingml.json"
+            }
           ]        
     },
     "devDependencies": {
