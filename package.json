@@ -50,7 +50,37 @@
 				"uiTheme": "vs-dark",
 				"path": "./themes/thingml.tmTheme.json"
 			}
-		]        
+        ],
+        "commands": [
+            {
+                "command": "thingml.compile.java",
+                "title": "ThingML: Generate Java"
+            },
+            {
+                "command": "thingml.compile.posix",
+                "title": "ThingML: Generate POSIX/C"
+            },
+            {
+                "command": "thingml.compile.arduino",
+                "title": "ThingML: Generate Arduino/C"
+            },
+            {
+                "command": "thingml.compile.go",
+                "title": "ThingML: Generate Go"
+            },
+            {
+                "command": "thingml.compile.nodejs",
+                "title": "ThingML: Generate NodeJS"
+            },
+            {
+                "command": "thingml.compile.browser",
+                "title": "ThingML: Generate JS for browser"
+            },
+            {
+                "command": "thingml.compile.uml",
+                "title": "ThingML: Generate PlantUML"
+            }
+        ]        
     },
     "devDependencies": {
   		"@types/node": "^12.12.0",
