@@ -80,7 +80,44 @@
                 "command": "thingml.compile.uml",
                 "title": "ThingML: Generate PlantUML"
             }
-        ]        
+        ],
+        "keybindings": [
+            {
+              "command": "thingml.compile.java",
+              "key": "ctrl+alt+j",
+              "when": "resourceExtname == .thingml"
+            },
+            {
+                "command": "thingml.compile.posix",
+                "key": "ctrl+alt+p",
+                "when": "resourceExtname == .thingml"
+            },
+            {
+                "command": "thingml.compile.arduino",
+                "key": "ctrl+alt+a",
+                "when": "resourceExtname == .thingml"
+            },
+            {
+                "command": "thingml.compile.go",
+                "key": "ctrl+alt+g",
+                "when": "resourceExtname == .thingml"
+            },
+            {
+                "command": "thingml.compile.nodejs",
+                "key": "ctrl+alt+n",
+                "when": "resourceExtname == .thingml"
+            },
+            {
+                "command": "thingml.compile.browser",
+                "key": "ctrl+alt+b",
+                "when": "resourceExtname == .thingml"
+            },
+            {
+                "command": "thingml.compile.uml",
+                "key": "ctrl+alt+u",
+                "when": "resourceExtname == .thingml"
+            }
+          ]        
     },
     "devDependencies": {
   		"@types/node": "^12.12.0",
