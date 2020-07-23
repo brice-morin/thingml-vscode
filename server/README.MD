@@ -1,0 +1,1 @@
+This `server` folder should contain thingml.ide-*-ls.jar, obtained by compiling `thingml.ide` in the ThingML repository (in `language/thingml.ide`).
