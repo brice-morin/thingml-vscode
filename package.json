@@ -79,6 +79,10 @@
             {
                 "command": "thingml.compile.uml",
                 "title": "ThingML: Generate PlantUML"
+            },
+            {
+                "command": "thingml.run.docker",
+                "title": "ThingML: Run configuration in Docker"
             }
         ],
         "keybindings": [
@@ -115,6 +119,11 @@
             {
                 "command": "thingml.compile.uml",
                 "key": "ctrl+alt+u",
+                "when": "resourceExtname == .thingml"
+            },
+            {
+                "command": "thingml.run.docker",
+                "key": "ctrl+alt+d",
                 "when": "resourceExtname == .thingml"
             }
           ],

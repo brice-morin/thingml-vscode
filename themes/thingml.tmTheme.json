@@ -20,10 +20,11 @@
 		{
 			"scope": [
 				"thingml.keyword.action",
-				"thingml.keyword.send"
+				"thingml.keyword.send",
+				"thingml.keyword.event"
 			],
 			"settings": {
-				"foreground": "#FFF8F2"
+				"foreground": "#EFE8E2"
 			}
 		},
 		{
@@ -47,7 +48,7 @@
 				"thingml.keyword.configuration"
 			],
 			"settings": {
-				"foreground": "#AAC8A2"
+				"foreground": "#AAEEBB"
 			}
 		},
 		{
@@ -55,7 +56,7 @@
 				"thingml.extern"
 			],
 			"settings": {
-				"foreground": "#FCC8BF"
+				"foreground": "#BC98EE"
 			}
 		},
 		{
@@ -63,7 +64,7 @@
 				"thingml.string"
 			],
 			"settings": {
-				"foreground": "#AAEEBB"
+				"foreground": "#AAC8A2"
 			}
 		},
 		{
@@ -71,7 +72,7 @@
 				"thingml.annot"
 			],
 			"settings": {
-				"foreground": "#A0F0FF"
+				"foreground": "#4C41EF"
 			}
 		},
 		{
@@ -81,7 +82,7 @@
 				"thingml.boolean"
 			],
 			"settings": {
-				"foreground": "#BC11BF"
+				"foreground": "#A0F0FF"
 			}
 		},
 		{

@@ -24,6 +24,9 @@
                     "include": "#sendaction"
                 },
                 {
+                    "include": "#event"
+                },
+                {
                     "include": "#states"
                 },
                 {
@@ -92,7 +95,7 @@
         },
         "structure": {
             "name": "thingml.keyword.structure",
-            "match": "\\b(?i)(thing|fragment|message|sends|receives|property|readonly property|datatype|object|enumeration|includes|port|provided|required|internal)\\b"
+            "match": "\\b(?i)(thing|fragment|message|sends|receives|property|readonly property|datatype|object|enumeration|includes|port|provided|required|internal port)\\b"
         },
         "action": {
             "name": "thingml.keyword.action",
@@ -100,7 +103,11 @@
         },
         "sendaction": {
             "name": "thingml.keyword.send",
-            "match": "\\w(!)"
+            "match": "\\w*(!)\\w*"
+        },
+        "event": {
+            "name": "thingml.keyword.event",
+            "match": "\\w*(\\?)\\w*"
         },
         "states": {
             "name": "thingml.keyword.states",

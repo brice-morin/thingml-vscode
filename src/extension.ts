@@ -9,6 +9,29 @@ import { LanguageClient, LanguageClientOptions, StreamInfo } from 'vscode-langua
 import fs = require('fs')
 import path = require('path')
 
+const compilers = ['java', 'posix', 'arduino', 'go', 'nodejs', 'browser', 'uml']
+
+function runInDocker() {
+    let dockerfiles = []
+    workspace.workspaceFolders?.forEach((folder) => {
+        compilers.forEach(compiler => {
+            fs.readdir(path.join(folder.uri.fsPath, 'thingml-gen', compiler), (err, files) => {
+                files.forEach((file) => {
+                    fs.exists(path.join(file, 'Dockerfile'), (exists) => {
+                        if (!exists) return
+                        console.log(path.dirname(path.join(file, 'Dockerfile')))
+                        dockerfiles.push(path.dirname(path.join(file, 'Dockerfile')))
+                    })
+                })
+            })
+        })
+    })
+    
+    //TODO: Dialog to select Dockerfile
+
+    //TODO: Build and run in terminal
+}
+
 function startThingML(context: ExtensionContext) {
     return new Promise(resolve => {
         const terminal = window.createTerminal({
@@ -99,18 +122,22 @@ export async function activate(context: ExtensionContext) {
     const terminal = window.createTerminal({
         name: `ThingML Compiler`
     } as any);    
-
-
-    const compilers = ['java', 'posix', 'arduino', 'go', 'nodejs', 'browser', 'uml']
     
     compilers.forEach(compiler => {
         //console.log('registering command thingml.compile.' + compiler)
         let compile = commands.registerTextEditorCommand('thingml.compile.' + compiler, (texteditor, edit, args) => {
             const source = texteditor.document.uri.fsPath.toString()
             const output = path.join(path.dirname(texteditor.document.uri.fsPath), 'thingml-gen', compiler)
+            //FIXME: we should generate code into a fixed folder such <root>/thingml-gen, not a folder relative to the current document...
+            //const output = path.join(path.dirname(workspace.getWorkspaceFolder(texteditor.document.uri)?.uri.fsPath ?? '/tmp'), 'thingml-gen', compiler)
             generateCodeWithProgress(context, terminal, compiler, source, output)
         })
         context.subscriptions.push(compile)
     });
+
+    let run = commands.registerCommand('thingml.run.docker', () => {
+        runInDocker()
+    })
+    context.subscriptions.push(run)
 
 }
