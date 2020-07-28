@@ -10,12 +10,13 @@ import fs = require('fs')
 import path = require('path')
 
 const compilers = ['java', 'posix', 'arduino', 'go', 'nodejs', 'browser', 'uml']
+const tools = ['monitor', 'monitor-bin', 'gomqttjson', 'javamqttjson', 'javascriptmqttjson', 'posixmqttjson']
 
 function runInDocker(context: ExtensionContext) {
     let folder : Uri = workspace.workspaceFolders?.values().next().value.uri    
     compilers.forEach(compiler => {
         let dockerfile = Uri.joinPath(folder, 'thingml-gen', compiler, 'Dockerfile')
-        workspace.fs.stat(Uri.joinPath(folder, 'thingml-gen', compiler, 'Dockerfile')).then(
+        workspace.fs.stat(dockerfile).then(
             (filestat) => {   
                 if (filestat.size <= 0) return;             
                 const terminal = window.createTerminal({
@@ -43,7 +44,7 @@ function startThingML(context: ExtensionContext) {
     });
 }
 
-function generateCodeWithProgress(context: ExtensionContext, terminal: Terminal, compiler: string, source: string, output: string) {
+function generateCodeWithProgress(context: ExtensionContext, terminal: Terminal, compiler: string, source: string, output: string, isTool: boolean = false) {
     window.withProgress({
         location: ProgressLocation.Notification,
         title: 'Compiling ' + source + ' to ' + compiler + ' in folder ' + output,
@@ -52,15 +53,21 @@ function generateCodeWithProgress(context: ExtensionContext, terminal: Terminal,
 		const p = new Promise(resolve => {
             let count = 0
             progress.report({increment: count})
-            generateCode(terminal, context, compiler, source, output)  
+            if (isTool) {
+                generateTool(terminal, context, compiler, source, output)  
+            } else {
+                generateCode(terminal, context, compiler, source, output)  
+            }            
             let timer: NodeJS.Timeout 
             timer = setInterval(()=>{
                 count += 2
                 if (count <= 100) {
                     progress.report({increment: count})
+                } else {
+                    clearInterval(timer)
+                    resolve()
                 }
             },200);
-            
             fs.watch(output, () => {
                 progress.report({increment: 100})
                 clearInterval(timer)
@@ -74,8 +81,15 @@ function generateCodeWithProgress(context: ExtensionContext, terminal: Terminal,
 function generateCode(terminal: Terminal, context: ExtensionContext, compiler: string, source: string, output: string) { 
     console.log('Compiling ' + source + ' to ' + compiler + ' in folder ' + output)   
     terminal.sendText('java -cp ' + context.asAbsolutePath(path.join('server', 'thingml.ide-2.0.0-SNAPSHOT-ls.jar ')).replace(/\\/g,'\\\\'), false)
-    terminal.sendText('org.thingml.compilers.commandline.Main --compiler ' + compiler + ' --source ' + source.replace(/\\/g,'\\\\') + ' --output ' + output.replace(/\\/g,'\\\\'))    
-    //terminal.dispose()
+    terminal.sendText('org.thingml.compilers.commandline.Main --compiler ' + compiler + ' --source ' + source.replace(/\\/g,'\\\\') + ' --output ' + output.replace(/\\/g,'\\\\') + ' --create-dir')    
+    terminal.show()
+}
+
+function generateTool(terminal: Terminal, context: ExtensionContext, tool: string, source: string, output: string) { 
+    console.log('Instrumenting ' + source + ' with tool ' + tool)   
+    terminal.sendText('java -cp ' + context.asAbsolutePath(path.join('server', 'thingml.ide-2.0.0-SNAPSHOT-ls.jar ')).replace(/\\/g,'\\\\'), false)
+    terminal.sendText('org.thingml.compilers.commandline.Main --tool ' + tool + ' --source ' + source.replace(/\\/g,'\\\\') + ' --output ' + output.replace(/\\/g,'\\\\') + ' --create-dir')    
+    terminal.show()
 }
 
 export async function activate(context: ExtensionContext) {
@@ -129,6 +143,15 @@ export async function activate(context: ExtensionContext) {
         })
         context.subscriptions.push(compile)
     });
+
+    tools.forEach(tool => {
+        let compile = commands.registerTextEditorCommand('thingml.tool.' + tool, (texteditor, edit, args) => {
+            const source = texteditor.document.uri.fsPath.toString()
+            const output = path.join(workspace.workspaceFolders?.values().next().value.uri.path ?? '/tmp', 'thingml-gen', tool)
+            generateCodeWithProgress(context, terminal, tool, source, output, true)
+        })
+        context.subscriptions.push(compile)
+    });    
 
     let run = commands.registerCommand('thingml.run.docker', () => {
         runInDocker(context)

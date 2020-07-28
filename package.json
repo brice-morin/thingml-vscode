@@ -83,6 +83,30 @@
             {
                 "command": "thingml.run.docker",
                 "title": "ThingML: Run configuration in Docker"
+            },
+            {
+                "command": "thingml.tool.monitor",
+                "title": "ThingML Tool: monitor, generates monitoring based on @monitor annotations"
+            },
+            {
+                "command": "thingml.tool.monitor-bin",
+                "title": "ThingML Tool: monitor-bin, generates binary monitoring based on @monitor annotations"
+            },
+            {
+                "command": "thingml.tool.gomqttjson",
+                "title": "ThingML Tool: gomqttjson, generates JSON serialization for messages to be sent over MQTT"
+            },
+            {
+                "command": "thingml.tool.javamqttjson",
+                "title": "ThingML Tool: javamqttjson, generates JSON serialization for messages to be sent over MQTT"
+            },
+            {
+                "command": "thingml.tool.javascriptmqttjson",
+                "title": "ThingML Tool: javascriptmqttjson, generates JSON serialization for messages to be sent over MQTT"
+            },
+            {
+                "command": "thingml.tool.posixmqttjson",
+                "title": "ThingML Tool: posixmqttjson, generates JSON serialization for messages to be sent over MQTT"
             }
         ],
         "keybindings": [
