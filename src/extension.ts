@@ -7,28 +7,35 @@ import { window, workspace, commands, ExtensionContext, Terminal, ProgressLocati
 import { LanguageClient, LanguageClientOptions, StreamInfo } from 'vscode-languageclient';
 
 import fs = require('fs')
+import os = require('os')
 import path = require('path')
+import { inspect } from 'util';
 
 const compilers = ['java', 'posix', 'arduino', 'go', 'nodejs', 'browser', 'uml']
 const tools = ['monitor', 'monitor-bin', 'gomqttjson', 'javamqttjson', 'javascriptmqttjson', 'posixmqttjson']
 
 function runInDocker(context: ExtensionContext) {
-    let folder : Uri = workspace.workspaceFolders?.values().next().value.uri    
-    compilers.forEach(compiler => {
-        let dockerfile = Uri.joinPath(folder, 'thingml-gen', compiler, 'Dockerfile')
-        workspace.fs.stat(dockerfile).then(
-            (filestat) => {   
-                if (filestat.size <= 0) return;             
-                const terminal = window.createTerminal({
-                    name: `Docker ` + compiler,
-                    hideFromUser: false
-                } as any);  
-                terminal.show()               
-                terminal.sendText('cd ' + Uri.joinPath(folder, 'thingml-gen', compiler).fsPath.toString().replace(/\\/g,'\\\\') + ' && docker build -t thingml/' + compiler + " . && docker run thingml/" + compiler)
-            },
-            (err) => {}
-        )
-    })
+
+    let sudo = ''
+    if (!os.platform().startsWith('win')) sudo = 'sudo '
+
+    workspace.findFiles('**/thingml-gen/**/Dockerfile').then(
+        (dockerfilesUri) => {
+            const terminal = window.createTerminal({
+                name: `ThingML Docker`,
+                hideFromUser: false
+            } as any);  
+            terminal.show() 
+            console.log(inspect(dockerfilesUri))
+            dockerfilesUri.forEach(
+                (dockerfileUri) => {
+                    console.log('cd ' + path.dirname(dockerfileUri.fsPath.toString()).replace(/\\/g,'\\\\') + ' && ' + sudo + 'docker run --rm --stop-timeout 30 $(' + sudo + 'docker build -q .)')
+                    terminal.sendText('cd ' + path.dirname(dockerfileUri.fsPath.toString()).replace(/\\/g,'\\\\') + ' && ' + sudo + 'docker run --rm --stop-timeout 30 $(' + sudo + 'docker build -q .)')
+                }
+            )              
+            //terminal.dispose()
+        }
+    )
 }
 
 function startThingML(context: ExtensionContext) {

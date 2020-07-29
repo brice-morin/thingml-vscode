@@ -45,11 +45,11 @@
             }
         ],
         "themes": [
-			{
-				"label": "ThingML Theme",
-				"uiTheme": "vs-dark",
-				"path": "./themes/thingml.tmTheme.json"
-			}
+            {
+                "label": "ThingML Theme",
+                "uiTheme": "vs-dark",
+                "path": "./themes/thingml.tmTheme.json"
+            }
         ],
         "commands": [
             {
@@ -111,9 +111,9 @@
         ],
         "keybindings": [
             {
-              "command": "thingml.compile.java",
-              "key": "ctrl+alt+j",
-              "when": "resourceExtname == .thingml"
+                "command": "thingml.compile.java",
+                "key": "ctrl+alt+j",
+                "when": "resourceExtname == .thingml"
             },
             {
                 "command": "thingml.compile.posix",
@@ -147,25 +147,25 @@
             },
             {
                 "command": "thingml.run.docker",
-                "key": "ctrl+alt+d",
+                "key": "ctrl+alt+r",
                 "when": "resourceExtname == .thingml"
             }
-          ],
-          "snippets": [
+        ],
+        "snippets": [
             {
-              "language": "thingml",
-              "path": "./snippets/thingml.json"
+                "language": "thingml",
+                "path": "./snippets/thingml.json"
             }
-          ]        
+        ]
     },
     "devDependencies": {
-  		"@types/node": "^12.12.0",
-  		"@types/vscode": "^1.34.0",
-  		"@typescript-eslint/eslint-plugin": "^3.0.2",
-  		"@typescript-eslint/parser": "^3.0.2",
-  		"eslint": "^7.1.0",
-  		"typescript": "^3.9.4"
-  	},
+        "@types/node": "^12.12.0",
+        "@types/vscode": "^1.34.0",
+        "@typescript-eslint/eslint-plugin": "^3.0.2",
+        "@typescript-eslint/parser": "^3.0.2",
+        "eslint": "^7.1.0",
+        "typescript": "^3.9.4"
+    },
     "scripts": {
         "vscode:prepublish": "npm install && npm run compile",
         "compile": "tsc -p ./",
