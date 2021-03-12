@@ -4,7 +4,7 @@ import {connect} from 'net';
 
 import {Trace} from 'vscode-jsonrpc';
 import { window, workspace, commands, ExtensionContext, Terminal, ProgressLocation, Uri } from 'vscode';
-import { LanguageClient, LanguageClientOptions, StreamInfo } from 'vscode-languageclient';
+import { LanguageClient, LanguageClientOptions, StreamInfo } from 'vscode-languageclient/node';
 
 import fs = require('fs')
 import os = require('os')
@@ -46,7 +46,7 @@ function startThingML(context: ExtensionContext) {
         } as any);    
         terminal.sendText('java -jar ' + context.asAbsolutePath(path.join('server', 'thingml.ide-2.0.0-SNAPSHOT-ls.jar')).replace(/\\/g,'\\\\'))    
         setTimeout(() => {
-          resolve('OK');
+            resolve('OK');
         }, 1000);
     });
 }
@@ -72,13 +72,13 @@ function generateCodeWithProgress(context: ExtensionContext, terminal: Terminal,
                     progress.report({increment: count})
                 } else {
                     clearInterval(timer)
-                    resolve()
+                    resolve(null)
                 }
             },200);
             fs.watch(output, () => {
                 progress.report({increment: 100})
                 clearInterval(timer)
-                resolve()
+                resolve(null)
             })            
         });        
         return p
