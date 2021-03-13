@@ -1,0 +1,30 @@
+import "datatypes.thingml" from stl
+
+thing fragment HelloFragment {
+    function sayHello(who : String) do
+        println "hello ", who 
+    end
+}
+
+thing H {}
+
+thing Hello includes HelloFragment {
+    property p : Integer
+    statechart SC init INIT {
+        state INIT{
+            on entry sayHello("ThingML")
+        }
+
+        state A {
+
+        }
+
+        state B {
+            
+        }
+    }
+}
+
+configuration main {
+    instance hello : Hello
+}

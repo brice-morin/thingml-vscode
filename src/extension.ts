@@ -14,6 +14,7 @@ import { inspect } from 'util';
 const compilers = ['java', 'posix', 'arduino', 'go', 'nodejs', 'browser', 'uml']
 const tools = ['monitor', 'monitor-bin', 'gomqttjson', 'javamqttjson', 'javascriptmqttjson', 'posixmqttjson']
 
+
 function runInDocker(context: ExtensionContext) {
 
     let sudo = ''
@@ -40,11 +41,12 @@ function runInDocker(context: ExtensionContext) {
 
 function startThingML(context: ExtensionContext) {
     return new Promise(resolve => {
-        const terminal = window.createTerminal({
+        const lspTerminal = window.createTerminal({
             name: `ThingML LSP Server`,
-            hideFromUser: true
+            hideFromUser: false
         } as any);    
-        terminal.sendText('java -jar ' + context.asAbsolutePath(path.join('server', 'thingml.ide-2.0.0-SNAPSHOT-ls.jar')).replace(/\\/g,'\\\\'))    
+        context.subscriptions.push(lspTerminal);
+        lspTerminal.sendText('java -jar ' + context.asAbsolutePath(path.join('server', 'thingml.ide-2.0.0-SNAPSHOT-ls.jar')).replace(/\\/g,'\\\\'))    
         setTimeout(() => {
             resolve('OK');
         }, 1000);
@@ -127,21 +129,21 @@ export async function activate(context: ExtensionContext) {
 	};
 
     // Create the language client and start the client.
-    let lc = new LanguageClient('ThingMLXtextServer', 'ThingML Xtext Server', serverOptions, clientOptions);
+    const lc = new LanguageClient('ThingMLXtextServer', 'ThingML Xtext Server', serverOptions, clientOptions);
 
     // enable tracing (.Off, .Messages, Verbose)
-    lc.trace = Trace.Verbose;
-    let disposable = lc.start();
+    lc.trace = Trace.Messages;
 
     // Push the disposable to the context's subscriptions so that the
     // client can be deactivated on extension deactivation
-    context.subscriptions.push(disposable);
+    context.subscriptions.push(lc.start());
 
 
     const terminal = window.createTerminal({
         name: `ThingML Compiler`
     } as any);    
-    
+    context.subscriptions.push(terminal);
+
     compilers.forEach(compiler => {
         let compile = commands.registerTextEditorCommand('thingml.compile.' + compiler, (texteditor, edit, args) => {
             const source = texteditor.document.uri.fsPath.toString()
@@ -164,5 +166,4 @@ export async function activate(context: ExtensionContext) {
         runInDocker(context)
     })
     context.subscriptions.push(run)
-
 }

@@ -56,70 +56,70 @@
             ]
         },
         "linecomment": {
-            "name": "thingml.comment.line",
+            "name": "comment.line.double-slash",
             "begin": "(^[ \\t]+)?(?=//)",
             "end": "(?=$)"
         },
         "blockcomment": {
-            "name": "thingml.comment.block",
+            "name": "comment.block",
             "begin": "/\\*(\\*)?(?!/)",
             "end": "\\*/"
         },
         "extern": {
-            "name": "thingml.extern",
+            "name": "string.quoted.other",
             "begin": "`",
             "end": "`"
         },
         "string": {
-            "name": "thingml.string",
+            "name": "constant.numeric",
             "begin": "\"",
             "end": "\""
         },
         "char": {
-            "name": "thingml.char",
+            "name": "constant.numeric",
             "begin": "'",
             "end": "'"
         },
         "number": {
-            "name": "thingml.number",
+            "name": "constant.numeric",
             "match": "\\b\\d+(.\\d+)?\\b"
         },
         "boolean": {
-            "name": "thingml.boolean",
+            "name": "constant.numeric",
             "match": "(true|false)"
         },
         "annot": {
-            "name": "thingml.annot",
+            "name": "support.type.property-name",
             "begin": "@",
             "end": "\\s+"
         },
         "structure": {
-            "name": "thingml.keyword.structure",
+            "name": "storage.type.class",
             "match": "\\b(?i)(thing|fragment|message|sends|receives|property|readonly property|datatype|object|enumeration|includes|port|provided|required|internal port)\\b"
         },
         "action": {
-            "name": "thingml.keyword.action",
+            "name": "keyword.control",
             "match": "\\b(?i)(import|from|if|then|while|and|or|not|var|readonly var|as|print|println|error|errorln|fork|return)\\b"
         },
         "sendaction": {
-            "name": "thingml.keyword.send",
+            "name": "keyword.control",
             "match": "\\w*(!)\\w*"
         },
         "event": {
-            "name": "thingml.keyword.event",
+            "name": "keyword.control",
             "match": "\\w*(\\?)\\w*"
         },
         "states": {
-            "name": "thingml.keyword.states",
+            "name": "storage.type.function",
             "match": "\\b(?i)(statechart|composite|state|final|event|transition|internal|guard|action|on entry|on exit|init|keeps|history|region|session|function|do|end|abstract)\\b"
         },
         
         "types": {
-            "name": "thingml.keyword.types",
+            "name": "support.type.property-name",
             "match": "\\b(?i)(Byte|Char|Integer|Boolean|Int8|UInt8|Int16|UInt16|Int32|UInt32|Long|Int64|UInt64|Float|Double|String|DigitalState)\\b"
         },
         "configuration": {
-            "name": "thingml.keyword.configuration",
+            "name": "storage.type",
             "match": "\\b(?i)(configuration|instance|connector|external|set)\\b"
         }
     },

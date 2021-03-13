@@ -28,8 +28,7 @@
             {
                 "id": "thingml",
                 "aliases": [
-                    "thingml",
-                    "ThingML"
+                    "thingml"
                 ],
                 "extensions": [
                     ".thingml"
@@ -42,13 +41,6 @@
                 "language": "thingml",
                 "scopeName": "text.thingml",
                 "path": "./syntaxes/thingml.tmLanguage.json"
-            }
-        ],
-        "themes": [
-            {
-                "label": "ThingML Theme",
-                "uiTheme": "vs-dark",
-                "path": "./themes/thingml.tmTheme.json"
             }
         ],
         "commands": [
