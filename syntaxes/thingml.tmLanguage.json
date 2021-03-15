@@ -51,7 +51,10 @@
                     "include": "#boolean"
                 },
                 {
-                    "include": "#types"
+                    "include": "#type"
+                },
+                {
+                    "include": "#stltypes"
                 }
             ]
         },
@@ -66,12 +69,12 @@
             "end": "\\*/"
         },
         "extern": {
-            "name": "string.quoted.other",
+            "name": "string.regexp",
             "begin": "`",
             "end": "`"
         },
         "string": {
-            "name": "constant.numeric",
+            "name": "string.single-quoted",
             "begin": "\"",
             "end": "\""
         },
@@ -93,13 +96,17 @@
             "begin": "@",
             "end": "\\s+"
         },
+        "type": {
+            "name": "storage.type.function",
+            "match": "\\b(?i)(thing|fragment|datatype|object|enumeration|includes)\\b"
+        },
         "structure": {
-            "name": "storage.type.class",
-            "match": "\\b(?i)(thing|fragment|message|sends|receives|property|readonly property|datatype|object|enumeration|includes|port|provided|required|internal port)\\b"
+            "name": "variable.other.constant",
+            "match": "\\b(?i)(message|sends|receives|property|readonly property|port|provided|required|internal port)\\b"
         },
         "action": {
             "name": "keyword.control",
-            "match": "\\b(?i)(import|from|if|then|while|and|or|not|var|readonly var|as|print|println|error|errorln|fork|return)\\b"
+            "match": "\\b(?i)(do|end|import|from|if|then|while|and|or|not|var|readonly var|as|print|println|error|errorln|fork|return)\\b"
         },
         "sendaction": {
             "name": "keyword.control",
@@ -110,16 +117,16 @@
             "match": "\\w*(\\?)\\w*"
         },
         "states": {
-            "name": "storage.type.function",
-            "match": "\\b(?i)(statechart|composite|state|final|event|transition|internal|guard|action|on entry|on exit|init|keeps|history|region|session|function|do|end|abstract)\\b"
+            "name": "variable.other.constant",
+            "match": "\\b(?i)(statechart|composite|state|final|event|transition|internal|guard|action|on entry|on exit|init|keeps|history|region|session|function|abstract)\\b"
         },
         
-        "types": {
+        "stltypes": {
             "name": "support.type.property-name",
             "match": "\\b(?i)(Byte|Char|Integer|Boolean|Int8|UInt8|Int16|UInt16|Int32|UInt32|Long|Int64|UInt64|Float|Double|String|DigitalState)\\b"
         },
         "configuration": {
-            "name": "storage.type",
+            "name": "entity.name.class",
             "match": "\\b(?i)(configuration|instance|connector|external|set)\\b"
         }
     },
