@@ -147,7 +147,8 @@ export async function activate(context: ExtensionContext) {
     compilers.forEach(compiler => {
         let compile = commands.registerTextEditorCommand('thingml.compile.' + compiler, (texteditor, edit, args) => {
             const source = texteditor.document.uri.fsPath.toString()
-            const output = path.join(workspace.workspaceFolders?.values().next().value.uri.path ?? '/tmp', 'thingml-gen', compiler)
+            const folder = workspace.getWorkspaceFolder(texteditor.document.uri)?.uri.fsPath ?? '/tmp';
+            const output = path.join(folder, 'thingml-gen', compiler)
             generateCodeWithProgress(context, terminal, compiler, source, output)
         })
         context.subscriptions.push(compile)
@@ -156,7 +157,8 @@ export async function activate(context: ExtensionContext) {
     tools.forEach(tool => {
         let compile = commands.registerTextEditorCommand('thingml.tool.' + tool, (texteditor, edit, args) => {
             const source = texteditor.document.uri.fsPath.toString()
-            const output = path.join(workspace.workspaceFolders?.values().next().value.uri.path ?? '/tmp', 'thingml-gen', tool)
+            const folder = workspace.getWorkspaceFolder(texteditor.document.uri)?.uri.fsPath ?? '/tmp';
+            const output = path.join(folder, 'thingml-gen', tool)
             generateCodeWithProgress(context, terminal, tool, source, output, true)
         })
         context.subscriptions.push(compile)
