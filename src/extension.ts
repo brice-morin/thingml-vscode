@@ -5,6 +5,7 @@ import {connect} from 'net';
 import {Trace} from 'vscode-jsonrpc';
 import { window, workspace, commands, ExtensionContext, Terminal, ProgressLocation, Uri } from 'vscode';
 import { LanguageClient, LanguageClientOptions, StreamInfo } from 'vscode-languageclient/node';
+import waitPort from 'wait-port';
 
 import fs = require('fs')
 import os = require('os')
@@ -40,16 +41,22 @@ function runInDocker(context: ExtensionContext) {
 }
 
 function startThingML(context: ExtensionContext) {
-    return new Promise(resolve => {
+    return new Promise((resolve,reject) => {
         const lspTerminal = window.createTerminal({
             name: `ThingML LSP Server`,
             hideFromUser: false
         } as any);    
         context.subscriptions.push(lspTerminal);
-        lspTerminal.sendText('java -jar ' + context.asAbsolutePath(path.join('server', 'thingml.ide-2.0.0-SNAPSHOT-ls.jar')).replace(/\\/g,'\\\\'))    
-        setTimeout(() => {
+        lspTerminal.sendText('java -jar ' + context.asAbsolutePath(path.join('server', 'thingml.ide-2.0.0-SNAPSHOT-ls.jar')).replace(/\\/g,'\\\\'))
+        waitPort({
+            host: 'localhost',
+            port: 5008,
+            timeout: 30_000,
+            interval: 500,
+            output: 'silent'
+        }).then(() => {
             resolve('OK');
-        }, 1000);
+        }).catch(reject);
     });
 }
 
