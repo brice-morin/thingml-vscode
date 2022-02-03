@@ -2,7 +2,7 @@
     "name": "thingml-vscode",
     "displayName": "ThingML VS Code editor",
     "description": "A simple VS Code editor for ThingML",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "publisher": "tellu",
     "icon": "images/thingml.png",
     "license": "MIT",
